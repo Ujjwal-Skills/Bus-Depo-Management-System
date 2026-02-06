@@ -49,10 +49,26 @@ bus_selection = input("\nPlease select desired bus by entering bus number: ")
 for bus in travel_data: 
     if bus_selection == bus['bus_number']:
         seat_selection = int(input("Please enter number of seats you want to book: "))
+
         if seat_selection <= bus['seats']:
+
             ticket = 50*seat_selection
             print("\n|  Your bill is ₹",ticket,"  |")
-            bus['seats'] -= seat_selection
-            #print("Available seats: "+ str(bus['seats']))
+            #ticket confirmation logic
+            a = 1
+            while a == 1:
+                confirmation = input("Please enter 'Confirm'/'Cancel' for booking: ").strip().lower()
+                if confirmation == 'confirm':
+                    print("\nYOUR SEAT IS BOOKED")
+                    bus['seats'] -= seat_selection
+                    #a-=1
+                    break
+                elif confirmation == 'cancel':
+                    print("\nCancellation Successful")
+                    #a-=1
+                    break
+
+        #print("Available seats: "+ str(bus['seats']))
+
         else:
             print("Sorry! These many seats are not available.")

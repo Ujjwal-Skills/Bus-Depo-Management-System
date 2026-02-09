@@ -2,7 +2,7 @@
 print("\n||------------------------------Welcome To City Buses------------------------------||\n")
 
 #inputs from user
-start = input("Please enter leaving location: ").strip().lower()
+start = input("Please enter the leaving location: ").strip().lower()
 end = input("Please enter destination location: ").strip().lower()
 date = input("Please enter date of journey (DD/MM/YYYY): ")
 #time = input("Enter time of journey (HH:MM): ")
@@ -249,7 +249,7 @@ if matches:
        print("Bus Number: "+m['bus_number']+" | Route: "+ m['start']+" to "+ m['end']+" | Time: "+m['time']+" | Available seats: "+str(m['seats']))
 
     #Bus selection logic
-    bus_selection = input("\nPlease select desired bus by entering bus number: ").strip().upper()
+    bus_selection = input("\nPlease select the desired bus by the entering bus number: ").strip().upper()
 
     for bus in matches: 
         if bus_selection == bus['bus_number']:
@@ -277,7 +277,7 @@ if matches:
             print("+------------Back of Bus----------+")
             
             #seat selection logic
-            seat_count = int(input("\nPlease enter number of seats you want to book: "))
+            seat_count = int(input("\nPlease enter the number of seats you want to book: "))
             if seat_count <= bus['seats']:
                 chosen = [] #store chosen seat number
                 
@@ -302,7 +302,7 @@ if matches:
                 #ticket confirmation logic
                 a = 1
                 while a == 1:
-                    confirmation = input("Please enter 'Confirm'/'Cancel' for booking: ").strip().lower()
+                    confirmation = input("\nPlease enter 'Confirm'/'Cancel' for booking: ").strip().lower()
                     if confirmation == 'confirm':
                         for s in chosen:
                             bus["selected_seat"][s] = "X"
@@ -350,5 +350,4 @@ if matches:
                 print("Sorry! These many seats are not available.")
                 #continue
 else:
-    print("No journeys match your criteria.")
-
+    print("No journeys match your criteria.")  

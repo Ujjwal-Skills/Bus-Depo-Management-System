@@ -176,7 +176,7 @@ Admin panel
 
 UJJWAL VERMA
 
-Computer Science Student
+Class 11th student
 
 
 ---

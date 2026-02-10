@@ -4,235 +4,76 @@ print("\n||------------------------------Welcome To City Buses------------------
 #inputs from user
 start = input("Please enter the leaving location: ").strip().lower()
 end = input("Please enter destination location: ").strip().lower()
-date = input("Please enter date of journey (DD/MM/YYYY): ")
+#date logic
+a = 1
+while a == 1:
+    date = input("Please enter date of journey (DD/MM/YYYY): ")
+
+    if len(date) == 10 and date[2] == "/" and date[5] == "/":
+        day = date[0:2]
+        month = date[3:5]
+        year = date[6:10]
+
+        if day.isdigit() and month.isdigit() and year.isdigit():
+            if 1 <= int(day) <= 31 and 1 <= int(month) <= 12:
+                break
+            else:
+                print("Invalid day or month!")
+        else:
+            print("Date must contain only numbers!")
+    else:
+        print("Invalid date format! Use DD/MM/YYYY")
+
+#ate = input("Please enter date of journey (DD/MM/YYYY): ")
 #time = input("Enter time of journey (HH:MM): ")
 
 #data storage
-travel_data = [
-    #date 01/04/2026
-    #route a to b 
-    {"bus_number": "BUS1061", "start": "City A", "end": "City B", "date": "01/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City A", "end": "City B", "date": "01/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City A", "end": "City B", "date": "01/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City A", "end": "City B", "date": "01/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route b to a
-    {"bus_number": "BUS1061", "start": "City B", "end": "City A", "date": "01/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City B", "end": "City A", "date": "01/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City B", "end": "City A", "date": "01/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City B", "end": "City A", "date": "01/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route a to c
-    {"bus_number": "BUS1063", "start": "City A", "end": "City C", "date": "01/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City A", "end": "City C", "date": "01/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City A", "end": "City C", "date": "01/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City A", "end": "City C", "date": "01/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route c to a
-    {"bus_number": "BUS1063", "start": "City C", "end": "City A", "date": "01/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City C", "end": "City A", "date": "01/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City C", "end": "City A", "date": "01/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City C", "end": "City A", "date": "01/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route  b to c
-    {"bus_number": "BUS1067", "start": "City B", "end": "City C", "date": "01/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City B", "end": "City C", "date": "01/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City B", "end": "City C", "date": "01/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City B", "end": "City C", "date": "01/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    #route c to b
-    {"bus_number": "BUS1067", "start": "City C", "end": "City B", "date": "01/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City C", "end": "City B", "date": "01/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City C", "end": "City B", "date": "01/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City C", "end": "City B", "date": "01/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
+travel_data = []
 
-    #date 02/04/2026
-    #route a to b 
-    {"bus_number": "BUS1061", "start": "City A", "end": "City B", "date": "02/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City A", "end": "City B", "date": "02/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City A", "end": "City B", "date": "02/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City A", "end": "City B", "date": "02/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route b to a
-    {"bus_number": "BUS1061", "start": "City B", "end": "City A", "date": "02/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City B", "end": "City A", "date": "02/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City B", "end": "City A", "date": "02/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City B", "end": "City A", "date": "02/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route a to c
-    {"bus_number": "BUS1063", "start": "City A", "end": "City C", "date": "02/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City A", "end": "City C", "date": "02/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City A", "end": "City C", "date": "02/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City A", "end": "City C", "date": "02/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route c to a
-    {"bus_number": "BUS1063", "start": "City C", "end": "City A", "date": "02/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City C", "end": "City A", "date": "02/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City C", "end": "City A", "date": "02/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City C", "end": "City A", "date": "02/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route  b to c
-    {"bus_number": "BUS1067", "start": "City B", "end": "City C", "date": "02/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City B", "end": "City C", "date": "02/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City B", "end": "City C", "date": "02/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City B", "end": "City C", "date": "02/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    #route c to b
-    {"bus_number": "BUS1067", "start": "City C", "end": "City B", "date": "02/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City C", "end": "City B", "date": "02/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City C", "end": "City B", "date": "02/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City C", "end": "City B", "date": "02/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
+routes = [
+    #forward routes
+    ["City A", "City B", 50],
+    ["City A", "City C", 55],
+    ["City A", "City D", 60],
+    ["City A", "City E", 95],
+    ["City B", "City C", 70],
+    ["City B", "City D", 75],
+    ["City B", "City E", 90],
+    ["City C", "City D", 85],
+    ["City C", "City E", 80],
+    ["City D", "City E", 65],
+    #back routes
+    ["City B", "City A", 50],
+    ["City C", "City A", 55],
+    ["City D", "City A", 60],
+    ["City E", "City A", 95],
+    ["City C", "City B", 70],
+    ["City D", "City B", 75],
+    ["City E", "City B", 90],
+    ["City D", "City C", 85],
+    ["City E", "City C", 80],
+    ["City E", "City D", 65]
 
-    #date 03/04/2026
-    #route a to b 
-    {"bus_number": "BUS1061", "start": "City A", "end": "City B", "date": "03/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City A", "end": "City B", "date": "03/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City A", "end": "City B", "date": "03/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City A", "end": "City B", "date": "03/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route b to a
-    {"bus_number": "BUS1061", "start": "City B", "end": "City A", "date": "03/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City B", "end": "City A", "date": "03/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City B", "end": "City A", "date": "03/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City B", "end": "City A", "date": "03/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route a to c
-    {"bus_number": "BUS1063", "start": "City A", "end": "City C", "date": "03/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City A", "end": "City C", "date": "03/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City A", "end": "City C", "date": "03/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City A", "end": "City C", "date": "03/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route c to a
-    {"bus_number": "BUS1063", "start": "City C", "end": "City A", "date": "03/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City C", "end": "City A", "date": "03/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City C", "end": "City A", "date": "03/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City C", "end": "City A", "date": "03/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route  b to c
-    {"bus_number": "BUS1067", "start": "City B", "end": "City C", "date": "03/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City B", "end": "City C", "date": "03/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City B", "end": "City C", "date": "03/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City B", "end": "City C", "date": "03/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    #route c to b
-    {"bus_number": "BUS1067", "start": "City C", "end": "City B", "date": "03/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City C", "end": "City B", "date": "03/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City C", "end": "City B", "date": "03/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City C", "end": "City B", "date": "03/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-
-    #date 04/04/2026
-    #route a to b 
-    {"bus_number": "BUS1061", "start": "City A", "end": "City B", "date": "04/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City A", "end": "City B", "date": "04/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City A", "end": "City B", "date": "04/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City A", "end": "City B", "date": "04/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route b to a
-    {"bus_number": "BUS1061", "start": "City B", "end": "City A", "date": "04/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City B", "end": "City A", "date": "04/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City B", "end": "City A", "date": "04/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City B", "end": "City A", "date": "04/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route a to c
-    {"bus_number": "BUS1063", "start": "City A", "end": "City C", "date": "04/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City A", "end": "City C", "date": "04/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City A", "end": "City C", "date": "04/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City A", "end": "City C", "date": "04/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route c to a
-    {"bus_number": "BUS1063", "start": "City C", "end": "City A", "date": "04/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City C", "end": "City A", "date": "04/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City C", "end": "City A", "date": "04/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City C", "end": "City A", "date": "04/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route  b to c
-    {"bus_number": "BUS1067", "start": "City B", "end": "City C", "date": "04/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City B", "end": "City C", "date": "04/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City B", "end": "City C", "date": "04/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City B", "end": "City C", "date": "04/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    #route c to b
-    {"bus_number": "BUS1067", "start": "City C", "end": "City B", "date": "04/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City C", "end": "City B", "date": "04/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City C", "end": "City B", "date": "04/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City C", "end": "City B", "date": "04/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-
-    #date 05/0/2026
-    #route a to b 
-    {"bus_number": "BUS1061", "start": "City A", "end": "City B", "date": "05/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City A", "end": "City B", "date": "05/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City A", "end": "City B", "date": "05/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City A", "end": "City B", "date": "05/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route b to a
-    {"bus_number": "BUS1061", "start": "City B", "end": "City A", "date": "05/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City B", "end": "City A", "date": "05/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City B", "end": "City A", "date": "05/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City B", "end": "City A", "date": "05/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route a to c
-    {"bus_number": "BUS1063", "start": "City A", "end": "City C", "date": "05/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City A", "end": "City C", "date": "05/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City A", "end": "City C", "date": "05/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City A", "end": "City C", "date": "05/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route c to a
-    {"bus_number": "BUS1063", "start": "City C", "end": "City A", "date": "05/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City C", "end": "City A", "date": "05/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City C", "end": "City A", "date": "05/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City C", "end": "City A", "date": "05/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route  b to c
-    {"bus_number": "BUS1067", "start": "City B", "end": "City C", "date": "05/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City B", "end": "City C", "date": "05/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City B", "end": "City C", "date": "05/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City B", "end": "City C", "date": "05/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    #route c to b
-    {"bus_number": "BUS1067", "start": "City C", "end": "City B", "date": "05/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City C", "end": "City B", "date": "05/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City C", "end": "City B", "date": "05/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City C", "end": "City B", "date": "05/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-
-    #date 06/04/2026
-    #route a to b 
-    {"bus_number": "BUS1061", "start": "City A", "end": "City B", "date": "06/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City A", "end": "City B", "date": "06/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City A", "end": "City B", "date": "06/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City A", "end": "City B", "date": "06/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route b to a
-    {"bus_number": "BUS1061", "start": "City B", "end": "City A", "date": "06/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City B", "end": "City A", "date": "06/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City B", "end": "City A", "date": "06/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City B", "end": "City A", "date": "06/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route a to c
-    {"bus_number": "BUS1063", "start": "City A", "end": "City C", "date": "06/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City A", "end": "City C", "date": "06/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City A", "end": "City C", "date": "06/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City A", "end": "City C", "date": "06/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route c to a
-    {"bus_number": "BUS1063", "start": "City C", "end": "City A", "date": "06/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City C", "end": "City A", "date": "06/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City C", "end": "City A", "date": "06/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City C", "end": "City A", "date": "06/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route  b to c
-    {"bus_number": "BUS1067", "start": "City B", "end": "City C", "date": "06/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City B", "end": "City C", "date": "06/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City B", "end": "City C", "date": "06/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City B", "end": "City C", "date": "06/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    #route c to b
-    {"bus_number": "BUS1067", "start": "City C", "end": "City B", "date": "06/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City C", "end": "City B", "date": "06/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City C", "end": "City B", "date": "06/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City C", "end": "City B", "date": "06/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-
-    #date 07/04/2026
-    #route a to b 
-    {"bus_number": "BUS1061", "start": "City A", "end": "City B", "date": "07/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City A", "end": "City B", "date": "07/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City A", "end": "City B", "date": "07/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City A", "end": "City B", "date": "07/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route b to a
-    {"bus_number": "BUS1061", "start": "City B", "end": "City A", "date": "07/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1072", "start": "City B", "end": "City A", "date": "07/04/2026", "time": "15:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1560", "start": "City B", "end": "City A", "date": "07/04/2026", "time": "16:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    {"bus_number": "BUS1140", "start": "City B", "end": "City A", "date": "07/04/2026", "time": "17:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 50},
-    #route a to c
-    {"bus_number": "BUS1063", "start": "City A", "end": "City C", "date": "07/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City A", "end": "City C", "date": "07/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City A", "end": "City C", "date": "07/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City A", "end": "City C", "date": "07/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route c to a
-    {"bus_number": "BUS1063", "start": "City C", "end": "City A", "date": "07/04/2026", "time": "14:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1509", "start": "City C", "end": "City A", "date": "07/04/2026", "time": "19:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1910", "start": "City C", "end": "City A", "date": "07/04/2026", "time": "20:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    {"bus_number": "BUS1840", "start": "City C", "end": "City A", "date": "07/04/2026", "time": "17:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 45},
-    #route  b to c
-    {"bus_number": "BUS1067", "start": "City B", "end": "City C", "date": "07/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City B", "end": "City C", "date": "07/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City B", "end": "City C", "date": "07/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City B", "end": "City C", "date": "07/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    #route c to b
-    {"bus_number": "BUS1067", "start": "City C", "end": "City B", "date": "07/04/2026", "time": "23:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1896", "start": "City C", "end": "City B", "date": "07/04/2026", "time": "13:15", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1904", "start": "City C", "end": "City B", "date": "07/04/2026", "time": "24:00", "seats": 20, "selected_seat": ["Available"]*20, "price": 65},
-    {"bus_number": "BUS1450", "start": "City C", "end": "City B", "date": "07/04/2026", "time": "15:30", "seats": 20, "selected_seat": ["Available"]*20, "price": 65}
 ]
+
+times = ["06:00","08:00","10:00","12:00","13:00", "14:00", "15:00", "17:00", "19:00","21:00","22:00"]
+
+bus_no = 1000
+
+for r in routes:
+    for t in times:
+        bus_no += 1
+
+        travel_data.append({
+            "bus_number": "BUS" + str(bus_no),
+            "start": r[0],
+            "end": r[1],
+            "date": date,
+            "time": t,
+            "price": r[2],  
+            "seats": 20,
+            "selected_seat": ["Available"] * 20
+        })
 
 #logic for search
 matches = []

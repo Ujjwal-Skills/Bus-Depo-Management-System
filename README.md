@@ -1,189 +1,119 @@
-# Bus-Depo-Management-System
+# 🚌 Bus Reservation System (Python – Console Based)
 
-🚌 Bus Reservation System (Python – Console Based)
+## 📌 Project Description
 
-📌 Project Overview
+This project is a console-based Bus Reservation System developed in Python as part of my Computer Science practical.
+The system simulates a real-world bus booking workflow where users can search buses, view seat layouts, select seats, calculate fares, and confirm or cancel bookings.
 
-This is a console-based Bus Reservation System developed in Python as part of my Computer Science practical project.
-
-The system allows users to:
-
-Search available buses by source, destination, and journey date
-
-View seat layout of selected bus
-
-Select seats manually
-
-Prevent duplicate or already booked seats
-
-Calculate ticket fare
-
-Confirm or cancel booking
-
-Generate booking summary with seat numbers and ticket ID
-
-
-The project simulates a real-world bus booking workflow using basic Python concepts.
-
+The project focuses on logic building, data automation, validation, and structured programming, without using any external libraries or databases.
 
 ---
 
-🎯 Objective
+## 🎯 Objectives
 
-The main objective of this project is to understand and implement:
-
-Python control structures (loops and conditions)
-
-Lists and dictionaries
-
-User input handling
-
-Simple data validation
-
-Logical flow of a booking system
-
-
-This project helped me improve my problem-solving and programming fundamentals.
-
+* To apply Python fundamentals in a real-life problem
+* To automate data generation using loops
+* To implement seat booking logic with validation
+* To handle user inputs safely and correctly
+* To understand how reservation systems work internally
 
 ---
 
-🛠 Technologies Used
+## 🛠 Technologies Used
 
-Python 3
+* Python 3
+* Console / Command Line Interface (CLI)
 
-Console / Terminal Interface
-
-
-(No external libraries used.)
-
+(No third-party libraries used)
 
 ---
 
-✨ Key Features
+## ✨ Key Features
 
-Dynamic bus data generation using loops
-
-Route-based bus searching
-
-Seat map display (4 seats per row)
-
-Manual seat selection
-
-Prevention of duplicate seat booking
-
-Booking confirmation and cancellation option
-
-Ticket generation with seat numbers
-
-Available seat count update after booking
-
+* Source, destination, and date-based bus search
+* Automated bus data generation using loops
+* Support for forward and return routes
+* Route-based ticket pricing
+* Date format validation (DD/MM/YYYY)
+* Visual seat map display (4 seats per row)
+* Manual seat selection
+* Prevention of:
+  * Duplicate seat selection
+  * Already booked seats
+* Ticket fare calculation
+* Booking confirmation and cancellation option
+* Booking summary with ticket ID
 
 ---
 
-▶️ How to Run
+## 📂 Project Structure
 
-1. Make sure Python is installed on your system.
+Bus_Depo_Management_System.py
+README.md
 
+---
 
-2. Clone this repository or download the file.
+## ▶️ How to Run the Project
 
-
-3. Open terminal / command prompt.
-
-
-4. Run:
-
-
+1. Ensure Python 3 is installed on your system
+2. Clone the repository or download the Python file
+3. Open terminal / command prompt
+4. Run the program:
 
 python Bus_Depo_Management_System.py
 
+---
+
+## 🔄 Program Flow (High Level)
+
+1. User enters source, destination, and journey date
+2. System validates date format
+3. Bus data is automatically generated using routes and timings
+4. Matching buses are displayed
+5. User selects a bus
+6. Seat layout is shown
+7. User selects seats
+8. Seat availability is validated
+9. Fare is calculated based on route price
+10. User confirms or cancels booking
+11. Booking summary is displayed
 
 ---
 
-📖 How It Works
-
-1. User enters source, destination, and journey date.
-
-
-2. System displays matching buses.
-
-
-3. User selects a bus.
-
-
-4. Seat map is shown.
-
-
-5. User selects required seats.
-
-
-6. System validates seat availability.
-
-
-7. Ticket price is calculated.
-
-
-8. User confirms or cancels booking.
-
-
-9. Booking summary is displayed.
-
-
-
-
----
-
-🚀 Learning Outcomes
+## 📚 Learning Outcomes
 
 Through this project, I learned:
 
-How to design program flow logically
-
-Handling user inputs safely
-
-Using nested loops and lists
-
-Working with dictionaries
-
-Implementing basic validation
-
-Simulating real-world systems using Python
-
-
+* How to automate repetitive data using loops
+* How to validate user input effectively
+* How to manage structured data using dictionaries
+* How to use nested loops for layout generation
+* How booking systems manage seat availability
+* How to design clean and logical program flow
 
 ---
 
-📌 Future Improvements
+## 🚀 Future Enhancements
 
-Add file/database storage
-
-GUI interface
-
-User login system
-
-Payment simulation
-
-Multiple journey dates
-
-Admin panel
-
-
+* File or database storage
+* Graphical user interface (GUI)
+* User login and authentication
+* Payment simulation
+* Admin panel for managing buses
+* Multiple journey dates support
 
 ---
 
-👨‍💻 Author
+## 👨‍💻 Author
 
 UJJWAL VERMA
-
-Class 11th student
-
+11th Class Student
+Python Developer (Beginner)
 
 ---
 
-⭐️ Note
+## 📌 Note
 
-This project is created for educational purposes.
-
+This project is created for educational purposes and to strengthen core Python programming concepts.
 
 ---
